@@ -7,8 +7,35 @@ h1 {
     text-align: center;
 }
 
-.timer{
+.timer {
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
+
+    /*circle*/
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 30%;
+    aspect-ratio: 1;
+}
+
+
+
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    /*rectangle*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 25px;
+    aspect-ratio: 1;
+    background-color: #ffffff;
+    border-radius: 20%;
 }
