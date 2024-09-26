@@ -1,0 +1,11 @@
+body {
+    background-color: rgb(255, 3, 20)
+}
+
+h1 {
+    text-align: center;
+}
+
+.timer{
+    display: inline-block;
+}
