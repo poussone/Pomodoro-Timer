@@ -2,12 +2,16 @@
 const display_min = document.getElementById('timer_min');
 const display_sec = document.getElementById('timer_sec');
 
+//work mode
+working = true;
+
 //work timer
 work_min = display_min.textContent;
 work_sec = display_sec.textContent;
 //pause timer
 pause_min = 0;
-pause_min = 0;
+pause_sec = 30;
+
 
 
 
@@ -19,8 +23,16 @@ window.onload = function countdown() {
             min = display_min.textContent;
             sec = display_sec.textContent;
             if (min == 0 && sec == 0) {
-                timer_running = !timer_running
-                document.getElementById('play_button').className = 'fa-solid fa-play';
+                if(working){
+                    display_min.textContent = pause_min;
+                    display_sec.textContent = pause_sec;
+                }else{
+                    display_min.textContent = work_min;
+                    display_sec.textContent = work_sec;
+                    
+                }
+                working = !working;
+                switch_mode();
             } else {
                 if (sec == 0) {
                     if (min < 11) {
@@ -51,7 +63,8 @@ document.getElementById('play_button').addEventListener("click", function () {
         //stop-reset
         document.getElementById('play_button').className = 'fa-solid fa-play';
         display_min.textContent = work_min;
-        display_sec.textContent + work_sec;
+        display_sec.textContent = work_sec;
+        working = true
     } else {
 
         //play
@@ -61,3 +74,13 @@ document.getElementById('play_button').addEventListener("click", function () {
     }
     timer_running = !timer_running
 });
+
+/*
+function switch_mode(){
+    if(working){
+        document.getElementsByAtr('body').style("background-color: rgb(255, 3, 20)");
+    }else{
+        document.getElementsByName('body').style("background-color: rgb(3, 255, 79);");
+    }
+}
+*/
