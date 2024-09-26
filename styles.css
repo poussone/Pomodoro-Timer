@@ -1,5 +1,6 @@
 body {
-    background-color: rgb(255, 3, 20)
+    background-color: rgb(255, 3, 20);
+    text-align: center;
 }
 
 h1 {
@@ -7,5 +8,7 @@ h1 {
 }
 
 .timer{
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
