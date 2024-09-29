@@ -6,11 +6,13 @@ const display_sec = document.getElementById('timer_sec');
 working = true;
 
 //work timer
-work_min = display_min.textContent;
-work_sec = display_sec.textContent;
+work_min = 25;
+work_sec = 0;
 //pause timer
 pause_min = 5;
 pause_sec = 0;
+
+set_display_time(work_min, work_sec);
 
 
 
@@ -24,73 +26,60 @@ window.onload = function countdown() {
             sec = display_sec.textContent;
             if (min == 0 && sec == 0) {
                 if (working) {
-                    display_min.textContent = pause_min;
-                    display_sec.textContent = pause_sec;
+                    set_display_time(pause_min, pause_sec);
                 } else {
-                    display_min.textContent = work_min;
-                    display_sec.textContent = work_sec;
-
+                    set_display_time(work_min, work_sec);
                 }
                 working = !working;
                 switch_mode();
             } else {
                 if (sec == 0) {
-                    if (min < 11) {
-                        display_min.textContent = '0' + (min - 1);
-                    } else {
-                        display_min.textContent = min - 1;
-                    }
-
-                    display_sec.textContent = 59;
+                    set_display_time(+min -1, 59);
                 } else {
-                    if (sec < 11) {
-                        display_sec.textContent = '0' + (sec - 1);
-                    } else {
-                        display_sec.textContent = sec - 1;
-                    }
-
+                    set_display_time(+min, +sec -1)
                 }
             }
         }
-    }, 1000);
+    }
+    , 1000);
 }
-/*
-function switch_mode(){
-    if(working){
-        document.getElementsByTagName('body')[0].style.backgroundColor("rgb(135, 206, 235");
-    }else{
 
+
+function switch_mode() {
+    if (working) {
+        document.getElementById('page').style.backgroundColor = "rgb(178,40,40)";
+        document.getElementById('circle_1').style.backgroundColor = "rgb(178, 70, 70)";
+        document.getElementById('circle_2').style.backgroundColor = "rgb(178, 50, 50)";
+    } else {
+        document.getElementById('page').style.backgroundColor = "rgb(17, 163, 221)";
+        document.getElementById('circle_1').style.backgroundColor = "rgb(110, 193, 226)";
+        document.getElementById('circle_2').style.backgroundColor = "rgb(79, 184, 226)";
     }
 }
-    */
 
 
 //Button click event
 document.getElementById('play_button').addEventListener("click", function () {
     if (timer_running) {
         //stop-reset
-        document.getElementById('play_button_icon').className = 'fa-solid fa-play';
+        document.getElementById('play_button_icon').className = 'fa-solid fa-play fa-5x';
         document.getElementById('up_arrow').style.visibility = "visible";
         document.getElementById('down_arrow').style.visibility = "visible";
-        display_min.textContent = work_min;
-        display_sec.textContent = work_sec;
-        working = true
+        set_display_time(work_min, work_sec);
+        working = true;
+        switch_mode();
     } else {
         //play
-        document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right';
+        document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right fa-5x';
         document.getElementById('up_arrow').style.visibility = "hidden";
         document.getElementById('down_arrow').style.visibility = "hidden";
     }
-    timer_running = !timer_running
+    timer_running = !timer_running;
 });
-
 document.getElementById('up_arrow').addEventListener("click", function () {
-    console.log("up");
     change_time(5, "work");
 });
-
 document.getElementById('down_arrow').addEventListener("click", function () {
-    console.log("down");
     change_time(-5, "work")
 });
 
@@ -99,21 +88,31 @@ function change_time(time_change, timer) {
         switch (timer) {
             case "work":
                 if (time_change >= 0 || work_min > 0) {
-                    work_min = +work_min + +time_change ;
-                    if(work_min < 10){
-                        display_min.textContent = '0' + work_min;
-                    }else{
-                        display_min.textContent = work_min;
-                    }
+                    work_min = +work_min + +time_change;
+                    set_display_time(work_min, work_sec);
                 }
-            break;
+                break;
 
-                case "pause":
+            case "pause":
 
                 break;
 
             default:
         }
 
+    }
+}
+
+
+function set_display_time(min, sec){
+    if (min < 10) {
+        display_min.textContent = '0' + min;
+    } else {
+        display_min.textContent = min;
+    }
+    if (sec < 10) {
+        display_sec.textContent = '0' + sec;
+    } else {
+        display_sec.textContent = sec;
     }
 }
