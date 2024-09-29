@@ -34,14 +34,14 @@ window.onload = function countdown() {
                 switch_mode();
             } else {
                 if (sec == 0) {
-                    set_display_time(+min -1, 59);
+                    set_display_time(+min - 1, 59);
                 } else {
-                    set_display_time(+min, +sec -1)
+                    set_display_time(+min, +sec - 1)
                 }
             }
         }
     }
-    , 1000);
+        , 1000);
 }
 
 
@@ -96,15 +96,12 @@ function change_time(time_change, timer) {
             case "pause":
 
                 break;
-
             default:
         }
 
     }
 }
-
-
-function set_display_time(min, sec){
+function set_display_time(min, sec) {
     if (min < 10) {
         display_min.textContent = '0' + min;
     } else {
