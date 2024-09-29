@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="./script.js" defer></script>
+    <script defer src="./script.js" defer></script>
     <script src="https://kit.fontawesome.com/19f6c0ec9f.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
@@ -13,13 +13,21 @@
 <body>
     <h1>Pomodoro Timer</h1>
     <div class="timer">
-        <p id="timer_min">00</p>
-        <p>:</p>
-        <p id="timer_sec">05</p>
+        <div class=circle_1>
+            <div class="circle_2">
+                <span id="up_arrow" class="up_arrow"><i class="fa-solid fa-angle-up fa-3x"></i></span>
+                <div class=timer_text>
+                    <p id="timer_min">25</p>
+                    <p>:</p>
+                    <p id="timer_sec">00</p>
+                </div>
+                <span id="down_arrow" class="down_arrow"><i class="fa-solid fa-angle-down fa-3x"></i></span>
+            </div>
+        </div>
     </div>
 
 
-    <span id="play_button" class="fa-solid fa-play"></span>
+    <span id="play_button" class="play_button"><i id="play_button_icon" class="fa-solid fa-play"></i></span>
 
 
 

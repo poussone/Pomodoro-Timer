@@ -9,8 +9,8 @@ working = true;
 work_min = display_min.textContent;
 work_sec = display_sec.textContent;
 //pause timer
-pause_min = 0;
-pause_sec = 30;
+pause_min = 5;
+pause_sec = 0;
 
 
 
@@ -23,13 +23,13 @@ window.onload = function countdown() {
             min = display_min.textContent;
             sec = display_sec.textContent;
             if (min == 0 && sec == 0) {
-                if(working){
+                if (working) {
                     display_min.textContent = pause_min;
                     display_sec.textContent = pause_sec;
-                }else{
+                } else {
                     display_min.textContent = work_min;
                     display_sec.textContent = work_sec;
-                    
+
                 }
                 working = !working;
                 switch_mode();
@@ -54,33 +54,66 @@ window.onload = function countdown() {
         }
     }, 1000);
 }
+/*
+function switch_mode(){
+    if(working){
+        document.getElementsByTagName('body')[0].style.backgroundColor("rgb(135, 206, 235");
+    }else{
+
+    }
+}
+    */
 
 
 //Button click event
 document.getElementById('play_button').addEventListener("click", function () {
     if (timer_running) {
-
         //stop-reset
-        document.getElementById('play_button').className = 'fa-solid fa-play';
+        document.getElementById('play_button_icon').className = 'fa-solid fa-play';
+        document.getElementById('up_arrow').style.visibility = "visible";
+        document.getElementById('down_arrow').style.visibility = "visible";
         display_min.textContent = work_min;
         display_sec.textContent = work_sec;
         working = true
     } else {
-
         //play
-        document.getElementById('play_button').className = 'fa-solid fa-rotate-right';
-
-
+        document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right';
+        document.getElementById('up_arrow').style.visibility = "hidden";
+        document.getElementById('down_arrow').style.visibility = "hidden";
     }
     timer_running = !timer_running
 });
 
-/*
-function switch_mode(){
-    if(working){
-        document.getElementsByAtr('body').style("background-color: rgb(255, 3, 20)");
-    }else{
-        document.getElementsByName('body').style("background-color: rgb(3, 255, 79);");
+document.getElementById('up_arrow').addEventListener("click", function () {
+    console.log("up");
+    change_time(5, "work");
+});
+
+document.getElementById('down_arrow').addEventListener("click", function () {
+    console.log("down");
+    change_time(-5, "work")
+});
+
+function change_time(time_change, timer) {
+    if (!timer_running) {
+        switch (timer) {
+            case "work":
+                if (time_change >= 0 || work_min > 0) {
+                    work_min = +work_min + +time_change ;
+                    if(work_min < 10){
+                        display_min.textContent = '0' + work_min;
+                    }else{
+                        display_min.textContent = work_min;
+                    }
+                }
+            break;
+
+                case "pause":
+
+                break;
+
+            default:
+        }
+
     }
 }
-*/
