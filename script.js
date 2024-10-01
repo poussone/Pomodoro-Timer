@@ -1,95 +1,66 @@
-//displayed time
-const display_min = document.getElementById('timer_min');
-const display_sec = document.getElementById('timer_sec');
+//------------------GLOBAL VARIABLE------------------//
 
-//work mode
-working = true;
+//main displayed time
+const main_display_min = document.getElementById('timer_min');
+const main_display_sec = document.getElementById('timer_sec');
 
-//work timer
+//secondary displayed time
+//const secondary_display_min = document.getElementById('pause_mi');
+
+//which mode is the timer on
+work = true;
+
+//should the timer tick down
+timer_running = false;
+
+//working time
 work_min = 25;
 work_sec = 0;
-//pause timer
+//pause time
 pause_min = 5;
 pause_sec = 0;
 
-set_display_time(work_min, work_sec);
 
+//------------------FUNCTION DEFINITION------------------//
 
-
-
-//ever ticking time if timer_running TRUE
-timer_running = false;
-window.onload = function countdown() {
-    timer = setInterval(function () {
-        if (timer_running) {
-            min = display_min.textContent;
-            sec = display_sec.textContent;
-            if (min == 0 && sec == 0) {
-                if (working) {
-                    set_display_time(pause_min, pause_sec);
-                } else {
-                    set_display_time(work_min, work_sec);
-                }
-                working = !working;
-                switch_mode();
-            } else {
-                if (sec == 0) {
-                    set_display_time(+min - 1, 59);
-                } else {
-                    set_display_time(+min, +sec - 1)
-                }
-            }
-        }
-    }
-        , 1000);
-}
-
-
+//Went called change the page style between work and pause mode depending on the value of 'work' variable
 function switch_mode() {
-    if (working) {
+    if (work) {
+        //switch to work
         document.getElementById('page').style.backgroundColor = "rgb(178,40,40)";
         document.getElementById('circle_1').style.backgroundColor = "rgb(178, 70, 70)";
         document.getElementById('circle_2').style.backgroundColor = "rgb(178, 50, 50)";
     } else {
+        //swith to pause
         document.getElementById('page').style.backgroundColor = "rgb(17, 163, 221)";
         document.getElementById('circle_1').style.backgroundColor = "rgb(110, 193, 226)";
         document.getElementById('circle_2').style.backgroundColor = "rgb(79, 184, 226)";
     }
 }
 
-
-//Button click event
-document.getElementById('play_button').addEventListener("click", function () {
-    if (timer_running) {
-        //stop-reset
-        document.getElementById('play_button_icon').className = 'fa-solid fa-play fa-5x';
-        document.getElementById('up_arrow').style.visibility = "visible";
-        document.getElementById('down_arrow').style.visibility = "visible";
-        set_display_time(work_min, work_sec);
-        working = true;
-        switch_mode();
+//Update the time from the main timer to the values given
+//Format the time text if it is only composed of one digit
+function set_main_display_time(min, sec) {
+    if (min < 10) {
+        main_display_min.textContent = '0' + min;
     } else {
-        //play
-        document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right fa-5x';
-        document.getElementById('up_arrow').style.visibility = "hidden";
-        document.getElementById('down_arrow').style.visibility = "hidden";
+        main_display_min.textContent = min;
     }
-    timer_running = !timer_running;
-});
-document.getElementById('up_arrow').addEventListener("click", function () {
-    change_time(5, "work");
-});
-document.getElementById('down_arrow').addEventListener("click", function () {
-    change_time(-5, "work")
-});
+    if (sec < 10) {
+        main_display_sec.textContent = '0' + sec;
+    } else {
+        main_display_sec.textContent = sec;
+    }
+}
 
-function change_time(time_change, timer) {
+//Add the time(can be negative) given to the timer choosed("work"/"pause")
+function change_time(time_to_add, timer) {
     if (!timer_running) {
         switch (timer) {
             case "work":
-                if (time_change >= 0 || work_min > 0) {
-                    work_min = +work_min + +time_change;
-                    set_display_time(work_min, work_sec);
+                if (time_to_add >= 0 || work_min > 0) {
+                    work_min = +work_min + +time_to_add;
+                    set_main_display_time(work_min, work_sec);
                 }
                 break;
 
@@ -101,15 +72,63 @@ function change_time(time_change, timer) {
 
     }
 }
-function set_display_time(min, sec) {
-    if (min < 10) {
-        display_min.textContent = '0' + min;
+
+
+//------------------BUTTON EVENT LISTENER------------------//
+
+//Arrows Listeners
+//increment work timer
+document.getElementById('up_arrow_work').addEventListener("click", function () { change_time(5, "work"); });
+
+//decrement work timer
+document.getElementById('down_arrow_work').addEventListener("click", function () { change_time(-5, "work"); });
+
+//play/reset button listener
+document.getElementById('play_button').addEventListener("click", function () {
+    if (timer_running) {
+        //reset
+        document.getElementById('play_button_icon').className = 'fa-solid fa-play fa-5x';
+        document.getElementById('up_arrow_work').style.visibility = "visible";
+        document.getElementById('down_arrow_work').style.visibility = "visible";
+        set_main_display_time(work_min, work_sec);
+        work = true;
+        switch_mode();
     } else {
-        display_min.textContent = min;
+        //play
+        document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right fa-5x';
+        document.getElementById('up_arrow_work').style.visibility = "hidden";
+        document.getElementById('down_arrow_work').style.visibility = "hidden";
     }
-    if (sec < 10) {
-        display_sec.textContent = '0' + sec;
-    } else {
-        display_sec.textContent = sec;
+    timer_running = !timer_running;
+});
+
+
+//------------------MAIN------------------//
+
+//each seconde try to update the timer
+window.onload = function countdown() {
+    timer = setInterval(function () {
+        if (timer_running) {
+            min = main_display_min.textContent;
+            sec = main_display_sec.textContent;
+            if (min == 0 && sec == 0) {
+                //timer reach 0 -> switch mode
+                if (work) {
+                    set_main_display_time(pause_min, pause_sec);
+                } else {
+                    set_main_display_time(work_min, work_sec);
+                }
+                work = !work;
+                switch_mode();
+            } else {
+                //keep ticking down
+                if (sec == 0) {
+                    set_main_display_time(+min - 1, 59);
+                } else {
+                    set_main_display_time(+min, +sec - 1)
+                }
+            }
+        }
     }
+        , 1000);
 }

@@ -30,7 +30,7 @@ h1 {
 }
 
 
-.timer_text {
+.main_timer_text {
     color: #ffffff;
     font-size: 9vw;
     line-height: 0px;
@@ -41,13 +41,12 @@ h1 {
     margin: auto;
 }
 
-
-.fa-angle-up{
+.fa-angle-down, .fa-angle-up{
     color: #ffffff;
-    margin-top: 15%;
 }
-.fa-angle-down{
-    color: #ffffff;
+
+.up_arrow{
+    margin-top: 15%;
 }
 
 
@@ -60,7 +59,7 @@ h1 {
     align-self: center;
 }
 
-.fredoka-titre {
+.fredoka-font {
     font-family: "Fredoka", sans-serif;
     font-style: normal;
     font-variation-settings: "wdth" 100;
