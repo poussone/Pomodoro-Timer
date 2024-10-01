@@ -5,7 +5,7 @@ const main_display_min = document.getElementById('timer_min');
 const main_display_sec = document.getElementById('timer_sec');
 
 //secondary displayed time
-//const secondary_display_min = document.getElementById('pause_mi');
+const secondary_display_min = document.getElementById('pause_timer_min');
 
 //which mode is the timer on
 work = true;
@@ -65,7 +65,14 @@ function change_time(time_to_add, timer) {
                 break;
 
             case "pause":
-
+                if (time_to_add >= 0 || pause_min > 0) {
+                    pause_min = +pause_min + +time_to_add;
+                    if (pause_min < 10) {
+                        secondary_display_min.textContent = '0' + pause_min;
+                    } else {
+                        secondary_display_min.textContent = pause_min;
+                    }
+                }
                 break;
             default:
         }
@@ -83,6 +90,12 @@ document.getElementById('up_arrow_work').addEventListener("click", function () {
 //decrement work timer
 document.getElementById('down_arrow_work').addEventListener("click", function () { change_time(-5, "work"); });
 
+//increment pause timer
+document.getElementById('up_arrow_pause').addEventListener("click", function () { change_time(5, "pause"); });
+
+//decrement pause timer
+document.getElementById('down_arrow_pause').addEventListener("click", function () { change_time(-5, "pause"); });
+
 //play/reset button listener
 document.getElementById('play_button').addEventListener("click", function () {
     if (timer_running) {
@@ -90,6 +103,7 @@ document.getElementById('play_button').addEventListener("click", function () {
         document.getElementById('play_button_icon').className = 'fa-solid fa-play fa-5x';
         document.getElementById('up_arrow_work').style.visibility = "visible";
         document.getElementById('down_arrow_work').style.visibility = "visible";
+        document.getElementById('pause_timer').style.visibility = "visible";
         set_main_display_time(work_min, work_sec);
         work = true;
         switch_mode();
@@ -98,6 +112,7 @@ document.getElementById('play_button').addEventListener("click", function () {
         document.getElementById('play_button_icon').className = 'fa-solid fa-rotate-right fa-5x';
         document.getElementById('up_arrow_work').style.visibility = "hidden";
         document.getElementById('down_arrow_work').style.visibility = "hidden";
+        document.getElementById('pause_timer').style.visibility = "hidden";
     }
     timer_running = !timer_running;
 });

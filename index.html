@@ -17,26 +17,48 @@
 
 <body id="page">
     <h1 class="fredoka-font">Pomodoro Timer</h1>
-    
+
     <div class="timer">
-        <div id="circle_1" class="circle_1">
-            <div id="circle_2" class="circle_2">
-                <span id="up_arrow_work" class=""><i class="fa-solid fa-angle-up fa-3x up_arrow"></i></span>
-                
-                <div class=main_timer_text>
-                    <p class="fredoka-font" id="timer_min">25</p>
-                    
-                    <p class="fredoka-font">:</p>
-                    
-                    <p class="fredoka-font" id="timer_sec">00</p>
-                    
+        <div class="main_timer">
+            <div id="circle_1" class="circle_1">
+                <div id="circle_2" class="circle_2">
+                    <span id="up_arrow_work" class=""><i class="fa-solid fa-angle-up fa-3x up_arrow"></i></span>
+
+                    <div class=main_timer_text>
+                        <p class="fredoka-font" id="timer_min">25</p>
+
+                        <p class="fredoka-font">:</p>
+
+                        <p class="fredoka-font" id="timer_sec">00</p>
+
+                    </div>
+
+                    <span id="down_arrow_work"><i class="fa-solid fa-angle-down fa-3x"></i></span>
                 </div>
-                
-                <span id="down_arrow_work"><i class="fa-solid fa-angle-down fa-3x"></i></span>
+            </div>
+        </div>
+
+        <div class="pause_timer" id="pause_timer">
+            <p class="fredoka-font pause_text">Pause</p>
+            <div id="circle_3" class="circle_3">
+                <div id="circle_4" class="circle_4">
+                    <span id="up_arrow_pause" class=""><i class="fa-solid fa-angle-up fa-1x up_arrow"></i></span>
+
+                    <div class=pause_timer_text>
+                        <p class="fredoka-font" id="pause_timer_min">05</p>
+
+                        <p class="fredoka-font">:</p>
+
+                        <p class="fredoka-font">00</p>
+
+                    </div>
+
+                    <span id="down_arrow_pause"><i class="fa-solid fa-angle-down fa-1x"></i></span>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <span id="play_button" class="play_button"><i id="play_button_icon" class="fa-solid fa-play fa-5x"></i></span>
 </body>
 
